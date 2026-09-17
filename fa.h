@@ -16,3 +16,5 @@ typedef struct fa {
     int length; //Length of the transition list
     int states;
 } fa;
+
+int epsilon_closure(const fa *automata, const int *current_states, int current_count, int *out_closure, int max_states);
