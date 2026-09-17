@@ -1,3 +1,4 @@
+#include "LinkedList.h"
 #define EPSILON '\0'
 
 //Diferent states are represented just as a positive integer 
