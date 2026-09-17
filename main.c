@@ -149,7 +149,7 @@ int main(void) {
     automata.length = 5; 
     automata.transitions = malloc(sizeof(transition) * automata.length);
 
-    //Creation of transitions
+    //Creation of transitions ( a|bc )
     automata.transitions[0] = (transition){0, 1, EPSILON}; // 0 -> 1
     automata.transitions[1] = (transition){0, 3, EPSILON}; // 0 -> 3
     automata.transitions[2] = (transition){1, 2, 'a'};     // 1 -a-> 2
@@ -157,7 +157,27 @@ int main(void) {
     automata.transitions[4] = (transition){4, 2, 'c'};     // 4 -c-> 2
 
     print_automata(&automata);
-
+    
+    // Test move {0,1} with 'a'
+    int *T = malloc(3 * sizeof(int));
+    T[0] = 0; //Ignores the Espsilon transition
+    T[1] = 1; //Moves to 2 reading a
+    T[2] = 3; //Ignores b
+    list *result = move(automata,T,3,'a');
+    //Print the linked list
+    printf("result: { ");
+    node *actual = result->head;
+    while (actual != NULL) {
+        printf("%d ", *(int *)actual->data);
+        actual = actual->next;
+    }
+    printf("}\n"); //Expected {2}
+    
+    list_free(result);
+    free(result);
+    free(T);
+    
+    
     // Test epsilon-closure with the sample automata from initial state 
     int initial_set[] = {0};
     int closure[5];
