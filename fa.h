@@ -17,4 +17,5 @@ typedef struct fa {
     int states;
 } fa;
 
-int epsilon_closure(const fa *automata, const int *current_states, int current_count, int *out_closure, int max_states);
+list *move(fa automata, int *T, int length_T, char a);
+int epsilon_closure(const fa *automata, const int *current_states, int current_count, int *out_closure, int max_states);
