@@ -28,6 +28,50 @@ void print_automata(fa *automata) {
 }
 
 /*
+ * Look for the integer in the linked list
+ * return true if is in the list, false if not
+ */
+bool belongs(list l, int value) {
+    node *actual = l.head;
+    while (actual != NULL) {
+        if (*(int *)actual->data == value) {
+            return true;
+        }
+        actual = actual->next;
+    }
+    return false;
+}
+
+/*
+ * automata: fa
+ * T: array of states (int*)
+ * length_T: length of array T
+ * a: carachter
+ * Return pointer to the head of the linked list
+ */
+list *move(fa automata, int *T, int length_T, char a) {
+    list *R = malloc(sizeof(list));
+    *R = list_create();
+
+    for (int i = 0; i < length_T; i++) {
+        int s = T[i];
+
+        //Look for the transitions that use s and a 
+        for (int j = 0; j < automata.length; j++) {
+            transition t = automata.transitions[j];
+            if (t.start == s && t.symbol == a) {
+                if (!belongs(*R, t.finish)) {
+                    int *new_state = malloc(sizeof(int));
+                    *new_state = t.finish;
+                    list_push(R, new_state);
+                }
+            }
+        }
+    }
+    return R;
+}
+
+/*
  * Epsilon-closure
  * Computes the epsilon closure of a set of states T using a stack (DFS)
  * and a visited array to prevent infinite loops in epsilon cycles.
