@@ -165,7 +165,7 @@ int main(void) {
     T[2] = 3; //Ignores b
     list *result = move(automata,T,3,'a');
     //Print the linked list
-    printf("result: { ");
+    printf("move({0,1,3},'a') = { ");
     node *actual = result->head;
     while (actual != NULL) {
         printf("%d ", *(int *)actual->data);
